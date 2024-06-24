@@ -15,18 +15,18 @@ public class MapSchemaTest {
     private MapSchema schema;
 
     @BeforeEach
-    final public void setUp() {
+    public final void setUp() {
         schema = validator.map();
     }
 
     @Test
-    final public void testIsValid() {
+    public final void testIsValid() {
         assertTrue(schema.isValid(null));
         assertTrue(schema.isValid(new HashMap<>()));
     }
 
     @Test
-    final public void testRequired() {
+    public final void testRequired() {
         schema.required();
         assertFalse(schema.isValid(null));
         assertTrue(schema.isValid(new HashMap<>()));
@@ -37,7 +37,7 @@ public class MapSchemaTest {
     }
 
     @Test
-    final public void testSizeof() {
+    public final void testSizeof() {
         Map<String, Object> data = new HashMap<>();
         data.put("key1", "value1");
 
@@ -49,7 +49,7 @@ public class MapSchemaTest {
     }
 
     @Test
-    final public void testCombined() {
+    public final void testCombined() {
         schema.required();
         schema.sizeof(2);
         assertFalse(schema.isValid(null));
@@ -64,7 +64,7 @@ public class MapSchemaTest {
     }
 
     @Test
-    final public void testShape() {
+    public final void testShape() {
         Map<String, BaseSchema<String>> schemas = new HashMap<>();
         schemas.put("firstName", validator.string().required());
         schemas.put("lastName", validator.string().required().minLength(2));
