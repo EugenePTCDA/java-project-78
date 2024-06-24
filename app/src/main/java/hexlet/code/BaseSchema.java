@@ -7,9 +7,9 @@ import java.util.function.Predicate;
 public abstract class BaseSchema<T> {
     protected List<Predicate<T>> validators = new ArrayList<>();
 
-    public boolean isValid(T value) {
+    public boolean isValid(Object value) {
         for (Predicate<T> validator : validators) {
-            if (!validator.test(value)) {
+            if (!validator.test((T) value)) {
                 return false;
             }
         }

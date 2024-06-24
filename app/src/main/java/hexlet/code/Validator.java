@@ -12,9 +12,4 @@ public class Validator {
     public MapSchema map() {
         return new MapSchema();
     }
-
-    public static void main(String[] args) {
-        Validator v = new Validator();
-        StringSchema schema = v.string();
-    }
 }
