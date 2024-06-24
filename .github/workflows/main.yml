@@ -1,0 +1,73 @@
+name: Java CI
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 21.0.3
+        uses: actions/setup-java@v2
+        with:
+          java-version: '21.0.3'
+          distribution: 'temurin'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./app/gradlew
+      
+      - name: Grand execute permission for gradlew.bat
+        run: chmod +x ./app/gradlew.bat
+      
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@v3
+        with:
+          arguments: build
+          build-root-directory: app
+          
+      - name: Run Checkstyle
+        uses: gradle/gradle-build-action@v3
+        with:
+          arguments: checkstyleMain
+          build-root-directory: app
+          gradle-executable: ./gradlew
+
+      - name: Run test
+        uses: gradle/gradle-build-action@v3
+        with:
+          arguments: test
+          build-root-directory: app
+          gradle-executable: ./gradlew
+
+      - name: Run Jacoco
+        uses: gradle/gradle-build-action@v3
+        with:
+          arguments: jacocoTestReport
+          build-root-directory: app
+          gradle-executable: ./gradlew
+      
+      - name: List files in the repository
+        run: ls -a ${{ github.workspace }}
+        
+      - name: List files in the repository2
+        run: ls -a ${{ github.workspace }}/app
+
+      - name: List files in the repository3
+        run: ls -a ${{ github.workspace }}/app/build/reports/jacoco/test
+
+      - name: Grant read permissions to jacocoTestReport.xml
+        run: chmod +r ${{github.workspace}}/app/build/reports/jacoco/test/jacocoTestReport.xml
+
+      - name: Upload coverage to CodeClimate
+        uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          JACOCO_SOURCE_PATH: app/src/main/java
+        with:
+          #coverageCommand: ls ${{ github.workspace }}/app/build/reports/jacoco/test/jacocoTestReport.xml
+          coverageLocations: ${{github.workspace}}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
