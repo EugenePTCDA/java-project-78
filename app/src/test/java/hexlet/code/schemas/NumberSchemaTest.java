@@ -49,7 +49,9 @@ public class NumberSchemaTest {
 
     @Test
     public void testCombined() {
-        schema.required().positive().range(5, 10);
+        schema.required();
+        schema.positive();
+        schema.range(5, 10);
         assertFalse(schema.isValid(null));
         assertTrue(schema.isValid(5));
         assertTrue(schema.isValid(10));

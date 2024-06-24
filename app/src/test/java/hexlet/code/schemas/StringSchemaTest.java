@@ -51,7 +51,11 @@ public class StringSchemaTest {
 
     @Test
     public void testCombined() {
-        schema.required().minLength(5).contains("wh");
+        schema.required();
+        schema.minLength(10);
+        schema.minLength(5);
+        schema.contains("wh");
+
         assertFalse(schema.isValid(null));
         assertFalse(schema.isValid(""));
         assertFalse(schema.isValid("1234"));

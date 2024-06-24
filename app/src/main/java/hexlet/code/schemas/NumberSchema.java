@@ -3,16 +3,16 @@ package hexlet.code.schemas;
 public class NumberSchema extends BaseSchema<Integer> {
 
     public NumberSchema required() {
-        validators.add(value -> value != null);
+        addValidator("required", value -> value != null);
         return this;
     }
 
     public NumberSchema positive() {
-        validators.add(value -> value == null || value > 0);
+        addValidator("positive", value -> value == null || value > 0);
         return this;
     }
 
     public void range(int min, int max) {
-        validators.add(value -> value == null || (value >= min && value <= max));
+        addValidator("range", value -> value == null || (value >= min && value <= max));
     }
 }

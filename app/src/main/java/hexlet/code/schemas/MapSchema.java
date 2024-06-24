@@ -8,17 +8,17 @@ public class MapSchema extends BaseSchema<Map<String, Object>> {
     private Map<String, BaseSchema<String>> shapeSchemas = new HashMap<>();
 
     public MapSchema required() {
-        validators.add(value -> value != null);
+        addValidator("required", value -> value != null);
         return this;
     }
 
     public void sizeof(int size) {
-        validators.add(value -> value == null || value.size() == size);
+        addValidator("sizeof", value -> value == null || value.size() == size);
     }
 
     public void shape(Map<String, BaseSchema<String>> schemas) {
         this.shapeSchemas = schemas;
-        validators.add(value -> {
+        addValidator("shape", value -> {
             if (value == null) {
                 return false;
             }

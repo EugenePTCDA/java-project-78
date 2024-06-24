@@ -50,7 +50,8 @@ public class MapSchemaTest {
 
     @Test
     public void testCombined() {
-        schema.required().sizeof(2);
+        schema.required();
+        schema.sizeof(2);
         assertFalse(schema.isValid(null));
         assertFalse(schema.isValid(new HashMap<>()));
 
