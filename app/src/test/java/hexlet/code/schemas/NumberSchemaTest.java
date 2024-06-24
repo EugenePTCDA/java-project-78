@@ -11,26 +11,26 @@ public class NumberSchemaTest {
     private NumberSchema schema;
 
     @BeforeEach
-    public void setUp() {
+    final public void setUp() {
         Validator validator = new Validator();
         schema = validator.number();
     }
 
     @Test
-    public void testIsValid() {
+    final public void testIsValid() {
         assertTrue(schema.isValid(5));
         assertTrue(schema.isValid(null));
     }
 
     @Test
-    public void testRequired() {
+    final public void testRequired() {
         schema.required();
         assertFalse(schema.isValid(null));
         assertTrue(schema.isValid(10));
     }
 
     @Test
-    public void testPositive() {
+    final public void testPositive() {
         schema.positive();
         assertTrue(schema.isValid(null));
         assertTrue(schema.isValid(10));
@@ -39,7 +39,7 @@ public class NumberSchemaTest {
     }
 
     @Test
-    public void testRange() {
+    final public void testRange() {
         schema.range(5, 10);
         assertTrue(schema.isValid(5));
         assertTrue(schema.isValid(10));
@@ -48,7 +48,7 @@ public class NumberSchemaTest {
     }
 
     @Test
-    public void testCombined() {
+    final public void testCombined() {
         schema.required();
         schema.positive();
         schema.range(5, 10);

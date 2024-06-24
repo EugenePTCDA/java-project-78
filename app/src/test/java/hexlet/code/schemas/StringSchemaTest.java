@@ -11,19 +11,19 @@ public class StringSchemaTest {
     private StringSchema schema;
 
     @BeforeEach
-    public void setUp() {
+    final public void setUp() {
         Validator validator = new Validator();
         schema = validator.string();
     }
 
     @Test
-    public void testIsValid() {
+    final public void testIsValid() {
         assertTrue(schema.isValid(""));
         assertTrue(schema.isValid(null));
     }
 
     @Test
-    public void testRequired() {
+    final public void testRequired() {
         schema.required();
         assertFalse(schema.isValid(null));
         assertFalse(schema.isValid(""));
@@ -31,7 +31,7 @@ public class StringSchemaTest {
     }
 
     @Test
-    public void testMinLength() {
+    final public void testMinLength() {
         schema.minLength(5);
         assertTrue(schema.isValid(null));
         assertFalse(schema.isValid("1234"));
@@ -39,7 +39,7 @@ public class StringSchemaTest {
     }
 
     @Test
-    public void testContains() {
+    final public void testContains() {
         schema.contains("wh");
         assertTrue(schema.isValid(null));
         assertTrue(schema.isValid("what does the fox say"));
@@ -50,7 +50,7 @@ public class StringSchemaTest {
     }
 
     @Test
-    public void testCombined() {
+    final public void testCombined() {
         schema.required();
         schema.minLength(10);
         schema.minLength(5);
