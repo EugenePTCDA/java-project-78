@@ -44,6 +44,9 @@ public class StringSchemaTest {
         assertTrue(schema.isValid(null));
         assertTrue(schema.isValid("what does the fox say"));
         assertFalse(schema.isValid("the fox"));
+
+        schema.contains("whatthe");
+        assertFalse(schema.isValid("what does the fox say"));
     }
 
     @Test
