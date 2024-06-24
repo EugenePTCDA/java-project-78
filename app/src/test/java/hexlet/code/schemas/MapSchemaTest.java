@@ -64,7 +64,7 @@ public class MapSchemaTest {
 
     @Test
     public void testShape() {
-        Map<String, BaseSchema<?>> schemas = new HashMap<>();
+        Map<String, BaseSchema<String>> schemas = new HashMap<>();
         schemas.put("firstName", validator.string().required());
         schemas.put("lastName", validator.string().required().minLength(2));
 
