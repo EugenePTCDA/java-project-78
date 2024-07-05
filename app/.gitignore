@@ -47,3 +47,4 @@ app/build/*
 app/.gradle/*
 
 *.idea/
+/.gradle/
